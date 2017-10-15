@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textViewResult;
+    private TextView textViewWarning;
     private EditText editTextKm;
     private EditText editTextPrice;
     private EditText editTextZl;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         textViewResult = (TextView) findViewById(R.id.textViewResult);
+        textViewWarning = (TextView) findViewById(R.id.textViewWarning);
         editTextKm = (EditText) findViewById(R.id.editTextKm);
         editTextZl = (EditText) findViewById(R.id.editTextZl);
         editTextPrice = (EditText) findViewById(R.id.editTextPrice);
@@ -42,25 +44,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void Result() {
+        String msg = "";
         if (editTextZl.length() == 0) {
             num1 = 0F;
+            msg += "Brak wartości tankowania!!! \n";
+            //textViewWarning.setText("Brak wartości tankowania!!!");
         } else {
             num1 = Float.parseFloat(editTextZl.getText().toString());
         }
         if (editTextPrice.length() == 0) {
             num2 = 0F;
+            msg += "Brak ceny paliwa!!! \n";
+            //textViewWarning.setText("Brak ceny paliwa!!!");
         } else {
             num2 = Float.parseFloat(editTextPrice.getText().toString());
         }
         if (editTextKm.length() == 0) {
             num3 = 0F;
+            msg += "Brak ilości kilometrów!!!";
+            //textViewWarning.setText("Brak ilości kilometrów!!!");
         } else {
             num3 = Float.parseFloat(editTextKm.getText().toString());
         }
-        num4 = num1 / num2 / num3;
-        eq = num4 * 100;
+        textViewWarning.setText(msg);
 
-        textViewResult.setText(String.format("= %.2f", eq));
+        if(num1 == 0 || num2 == 0 || num3 == 0){
+            textViewResult.setText("");
+        }else{
+            num4 = num1 / num2 / num3;
+            eq = num4 * 100;
+
+            textViewResult.setText(String.format("= %.2f", eq));
+        }
     }
 
     public void helpClick(View view) {
