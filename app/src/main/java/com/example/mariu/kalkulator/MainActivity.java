@@ -1,8 +1,10 @@
 package com.example.mariu.kalkulator;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
         textViewResult = (TextView) findViewById(R.id.textViewResult);
         textViewWarning = (TextView) findViewById(R.id.textViewWarning);
         editTextKm = (EditText) findViewById(R.id.editTextKm);
@@ -48,21 +54,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (editTextZl.length() == 0) {
             num1 = 0F;
             msg += "Brak wartości tankowania!!! \n";
-            //textViewWarning.setText("Brak wartości tankowania!!!");
         } else {
             num1 = Float.parseFloat(editTextZl.getText().toString());
         }
         if (editTextPrice.length() == 0) {
             num2 = 0F;
             msg += "Brak ceny paliwa!!! \n";
-            //textViewWarning.setText("Brak ceny paliwa!!!");
         } else {
             num2 = Float.parseFloat(editTextPrice.getText().toString());
         }
         if (editTextKm.length() == 0) {
             num3 = 0F;
             msg += "Brak ilości kilometrów!!!";
-            //textViewWarning.setText("Brak ilości kilometrów!!!");
         } else {
             num3 = Float.parseFloat(editTextKm.getText().toString());
         }
@@ -95,7 +98,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //btnReturn.setOnClickListener(this);
         TextView right = (TextView) findViewById(R.id.text1);
         right.setText("Mariusz Garbiński (id.: 29304)\n\n" +
-                "Prawa autorskie zastrzeżone\n");
+                "Projekt był inspirowany przez rozwiązania GNU GPL.\n" +
+                "Powstała aplikacja, która pomaga autorom w przeznaczeniu swoich prac do publicznego udostępnienia\n" +
+                "albo zachowania copyright w wypadku licencjonowania prac do bezpłatnego użytku\n" +
+                "dla określonych osób, na określonych warunkach");
     }
 
     public void returnClick(View view) {
